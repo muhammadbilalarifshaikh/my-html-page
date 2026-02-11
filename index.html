@@ -2,14 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Bilal Traders - Premium Copper</title>
+<title>Bilal Traders - 1KG Fine Copper</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-    body {
-        margin: 0;
-        overflow: hidden;
-        background: #e9ecef; /* brighter studio background */
-    }
+    body { margin:0; overflow:hidden; background:#f5f5f5; }
 </style>
 </head>
 <body>
@@ -22,44 +18,49 @@
 <script>
 const scene = new THREE.Scene();
 
+// CAMERA
 const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 1000);
-camera.position.set(0, 4, 9);
+camera.position.set(0,4,10);
 
-const renderer = new THREE.WebGLRenderer({ antialias: true });
+// RENDERER
+const renderer = new THREE.WebGLRenderer({ antialias:true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.physicallyCorrectLights = true;
 renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.4;
+renderer.toneMappingExposure = 1.8; // brighter
+renderer.shadowMap.enabled = true;
 document.body.appendChild(renderer.domElement);
 
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
-// ====== BRIGHT STUDIO LIGHTING ======
-scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+// LIGHTING (strong studio lights)
+const ambient = new THREE.AmbientLight(0xffffff, 1.2);
+scene.add(ambient);
 
-const keyLight = new THREE.DirectionalLight(0xffffff, 1.5);
-keyLight.position.set(10, 15, 10);
+const keyLight = new THREE.DirectionalLight(0xffffff, 2);
+keyLight.position.set(10,15,10);
+keyLight.castShadow = true;
 scene.add(keyLight);
 
-const fillLight = new THREE.DirectionalLight(0xffffff, 1);
-fillLight.position.set(-10, 5, -10);
+const fillLight = new THREE.DirectionalLight(0xffffff, 1.5);
+fillLight.position.set(-10,10,-10);
 scene.add(fillLight);
 
-// ====== SHINY COPPER MATERIAL ======
+// COPPER MATERIAL (REALISTIC SHINY)
 const copperMaterial = new THREE.MeshPhysicalMaterial({
-    color: 0x7c4e23,
+    color: 0xcc7a33,
     metalness: 1,
-    roughness: 0.05,   // very polished
+    roughness: 0.12,
     clearcoat: 1,
-    clearcoatRoughness: 0.01,
-    reflectivity: 1
+    clearcoatRoughness: 0.05,
+    envMapIntensity: 2
 });
 
-// ====== BAR SHAPE ======
+// BAR GEOMETRY (rounded)
 const shape = new THREE.Shape();
-const w = 6, h = 2, r = 0.4;
+const w = 6, h = 2, r = 0.5;
 
 shape.moveTo(-w/2 + r, -h/2);
 shape.lineTo(w/2 - r, -h/2);
@@ -71,73 +72,75 @@ shape.quadraticCurveTo(-w/2, h/2, -w/2, h/2 - r);
 shape.lineTo(-w/2, -h/2 + r);
 shape.quadraticCurveTo(-w/2, -h/2, -w/2 + r, -h/2);
 
-const geometry = new THREE.ExtrudeGeometry(shape, {
-    depth: 1.4,
-    bevelEnabled: true,
-    bevelThickness: 0.2,
-    bevelSize: 0.2,
-    bevelSegments: 6
+const geometry = new THREE.ExtrudeGeometry(shape,{
+    depth:1.5,
+    bevelEnabled:true,
+    bevelThickness:0.25,
+    bevelSize:0.25,
+    bevelSegments:8
 });
 
 const bar = new THREE.Mesh(geometry, copperMaterial);
-bar.rotation.x = -Math.PI / 2;
+bar.rotation.x = -Math.PI/2;
+bar.castShadow = true;
 scene.add(bar);
 
-// ====== EMBOSSED TEXT ======
+// FLOOR
+const floor = new THREE.Mesh(
+    new THREE.PlaneGeometry(50,50),
+    new THREE.MeshStandardMaterial({ color:0xffffff, roughness:0.5 })
+);
+floor.rotation.x = -Math.PI/2;
+floor.position.y = -1.6;
+floor.receiveShadow = true;
+scene.add(floor);
+
+// EMBOSSED TEXT
 const loader = new THREE.FontLoader();
 
 loader.load("https://threejs.org/examples/fonts/helvetiker_bold.typeface.json", function(font){
 
-    function createText(text, size, yPos){
-        const textGeo = new THREE.TextGeometry(text, {
-            font: font,
-            size: size,
-            height: 0.15,  // emboss depth
-            bevelEnabled: true,
-            bevelThickness: 0.02,
-            bevelSize: 0.02,
-            bevelSegments: 3
+    function addText(text,size,yPos){
+        const geo = new THREE.TextGeometry(text,{
+            font:font,
+            size:size,
+            height:0.2,
+            bevelEnabled:true,
+            bevelThickness:0.02,
+            bevelSize:0.02,
+            bevelSegments:3
         });
 
-        textGeo.computeBoundingBox();
-        const textMesh = new THREE.Mesh(textGeo, copperMaterial);
+        geo.computeBoundingBox();
+        const mesh = new THREE.Mesh(geo,copperMaterial);
 
-        const textWidth = textGeo.boundingBox.max.x - textGeo.boundingBox.min.x;
-        textMesh.position.x = -textWidth / 2;
-        textMesh.position.y = yPos;
-        textMesh.position.z = 0.8;  // sit on top
+        const width = geo.boundingBox.max.x - geo.boundingBox.min.x;
+        mesh.position.x = -width/2;
+        mesh.position.y = yPos;
+        mesh.position.z = 1;
+        mesh.rotation.x = -Math.PI/2;
 
-        textMesh.rotation.x = -Math.PI / 2;
-        scene.add(textMesh);
+        scene.add(mesh);
     }
 
-    createText("1 KG", 0.6, 0.6);
-    createText("99.99% PURE COPPER", 0.35, 0.2);
-    createText("BILAL TRADERS", 0.4, -0.3);
+    addText("1 KG",0.7,0.6);
+    addText("99.99% PURE COPPER",0.35,0.15);
+    addText("BILAL TRADERS",0.45,-0.4);
 });
 
-// ====== FLOOR ======
-const floor = new THREE.Mesh(
-    new THREE.PlaneGeometry(50, 50),
-    new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.4 })
-);
-floor.rotation.x = -Math.PI / 2;
-floor.position.y = -1.4;
-scene.add(floor);
-
-// ====== ANIMATION ======
+// ANIMATION
 function animate(){
     requestAnimationFrame(animate);
-    bar.rotation.z += 0.002; // slow showroom spin
+    bar.rotation.z += 0.003;
     controls.update();
-    renderer.render(scene, camera);
+    renderer.render(scene,camera);
 }
 animate();
 
-window.addEventListener("resize", ()=>{
+window.addEventListener("resize",()=>{
     camera.aspect = window.innerWidth/window.innerHeight;
     camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(window.innerWidth,window.innerHeight);
 });
 </script>
 
