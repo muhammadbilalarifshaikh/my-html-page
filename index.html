@@ -6,141 +6,112 @@
 <title>Certified 99.99% Pure Copper - 1KG</title>
 
 <style>
-    body {
-        margin: 0;
-        background: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 60%, #000000 100%);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        overflow: hidden;
-        font-family: 'Segoe UI', sans-serif;
-        color: #ffffff;
-    }
+body {
+    margin: 0;
+    background: radial-gradient(circle at center, #1a1a1a 0%, #000 70%);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+}
 
-    h1 {
-        position: absolute;
-        top: 40px;
-        font-weight: 300;
-        letter-spacing: 4px;
-        font-size: 20px;
-        opacity: 0.8;
-    }
+h1 {
+    position: absolute;
+    top: 40px;
+    letter-spacing: 4px;
+    font-weight: 300;
+    font-size: 18px;
+    opacity: 0.8;
+}
 
-    .scene {
-        width: 400px;
-        height: 200px;
-        perspective: 1200px;
-    }
+.scene {
+    width: 420px;
+    height: 220px;
+    perspective: 1400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-    .bar {
-        width: 100%;
-        height: 100%;
-        position: relative;
-        transform-style: preserve-3d;
-        transform: rotateX(20deg) rotateY(-25deg);
-        animation: float 6s ease-in-out infinite;
-        cursor: grab;
-    }
+.bar {
+    width: 380px;
+    height: 180px;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateX(18deg) rotateY(-18deg);
+    transition: transform 0.1s ease-out;
+    cursor: grab;
+}
 
-    @keyframes float {
-        0% { transform: rotateX(20deg) rotateY(-25deg) translateY(0px); }
-        50% { transform: rotateX(22deg) rotateY(-20deg) translateY(-10px); }
-        100% { transform: rotateX(20deg) rotateY(-25deg) translateY(0px); }
-    }
+/* Copper Gradient */
+.face {
+    position: absolute;
+    background: linear-gradient(
+        145deg,
+        #f2a065 0%,
+        #d8843f 30%,
+        #b87333 55%,
+        #8a4a20 80%
+    );
+    box-shadow:
+        inset -25px -25px 40px rgba(0,0,0,0.5),
+        inset 25px 25px 40px rgba(255,255,255,0.15),
+        0 25px 60px rgba(0,0,0,0.8);
+    border-radius: 12px;
+}
 
-    .face {
-        position: absolute;
-        background: linear-gradient(145deg, #b87333, #d99058, #8c4a1f);
-        box-shadow: inset -20px -20px 40px rgba(0,0,0,0.4),
-                    inset 20px 20px 40px rgba(255,255,255,0.2),
-                    0 20px 50px rgba(0,0,0,0.8);
-    }
+/* Faces */
+.front  { width: 380px; height: 180px; transform: translateZ(60px); display:flex; justify-content:center; align-items:center; }
+.back   { width: 380px; height: 180px; transform: rotateY(180deg) translateZ(60px); }
+.top    { width: 380px; height: 120px; transform: rotateX(90deg) translateZ(90px); }
+.bottom { width: 380px; height: 120px; transform: rotateX(-90deg) translateZ(90px); }
+.left   { width: 120px; height: 180px; transform: rotateY(-90deg) translateZ(190px); }
+.right  { width: 120px; height: 180px; transform: rotateY(90deg) translateZ(190px); }
 
-    .front {
-        width: 400px;
-        height: 200px;
-        transform: translateZ(60px);
-        border-radius: 8px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+/* Engraving */
+.engraving {
+    text-align: center;
+    color: #5a2c0c;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow:
+        1px 1px 0 #f7c6a2,
+        -1px -1px 0 #6d3716,
+        3px 3px 10px rgba(0,0,0,0.7);
+}
 
-    .back {
-        width: 400px;
-        height: 200px;
-        transform: rotateY(180deg) translateZ(60px);
-        border-radius: 8px;
-    }
+.engraving h2 {
+    margin: 6px 0;
+    font-size: 26px;
+}
 
-    .top {
-        width: 400px;
-        height: 120px;
-        transform: rotateX(90deg) translateZ(100px);
-        border-radius: 8px;
-    }
+.engraving p {
+    margin: 4px 0;
+    font-size: 17px;
+}
 
-    .bottom {
-        width: 400px;
-        height: 120px;
-        transform: rotateX(-90deg) translateZ(100px);
-        border-radius: 8px;
-    }
+/* Centered Reflection */
+.reflection {
+    position: absolute;
+    bottom: 90px;
+    width: 300px;
+    height: 90px;
+    background: radial-gradient(ellipse at center, rgba(255,140,60,0.35) 0%, transparent 75%);
+    filter: blur(30px);
+}
 
-    .left {
-        width: 120px;
-        height: 200px;
-        transform: rotateY(-90deg) translateZ(200px);
-        border-radius: 8px;
-    }
-
-    .right {
-        width: 120px;
-        height: 200px;
-        transform: rotateY(90deg) translateZ(200px);
-        border-radius: 8px;
-    }
-
-    .engraving {
-        text-align: center;
-        color: #5a2c0c;
-        font-weight: 700;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        text-shadow:
-            1px 1px 0 #f5c29c,
-            -1px -1px 0 #7a3f17,
-            2px 2px 6px rgba(0,0,0,0.6);
-    }
-
-    .engraving h2 {
-        margin: 5px 0;
-        font-size: 28px;
-    }
-
-    .engraving p {
-        margin: 5px 0;
-        font-size: 18px;
-    }
-
-    .reflection {
-        position: absolute;
-        bottom: 80px;
-        width: 350px;
-        height: 80px;
-        background: radial-gradient(ellipse at center, rgba(255,140,60,0.3) 0%, transparent 70%);
-        filter: blur(25px);
-    }
-
-    footer {
-        position: absolute;
-        bottom: 30px;
-        font-size: 14px;
-        opacity: 0.6;
-        letter-spacing: 2px;
-    }
+/* Footer */
+footer {
+    position: absolute;
+    bottom: 35px;
+    font-size: 14px;
+    letter-spacing: 3px;
+    opacity: 0.6;
+}
 </style>
 </head>
 
@@ -171,39 +142,33 @@
 <footer>Authenticity Guaranteed</footer>
 
 <script>
-const bar = document.getElementById('bar');
+const bar = document.getElementById("bar");
 
 let isDragging = false;
-let previousX, previousY;
-let rotationX = 20;
-let rotationY = -25;
+let prevX, prevY;
+let rotX = 18;
+let rotY = -18;
 
-bar.addEventListener('mousedown', (e) => {
+bar.addEventListener("mousedown", e => {
     isDragging = true;
-    previousX = e.clientX;
-    previousY = e.clientY;
+    prevX = e.clientX;
+    prevY = e.clientY;
 });
 
-document.addEventListener('mouseup', () => {
-    isDragging = false;
-});
+document.addEventListener("mouseup", () => isDragging = false);
 
-document.addEventListener('mousemove', (e) => {
+document.addEventListener("mousemove", e => {
     if (!isDragging) return;
 
-    let deltaX = e.clientX - previousX;
-    let deltaY = e.clientY - previousY;
+    rotY += (e.clientX - prevX) * 0.4;
+    rotX -= (e.clientY - prevY) * 0.4;
 
-    rotationY += deltaX * 0.5;
-    rotationX -= deltaY * 0.5;
+    bar.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
 
-    bar.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
-
-    previousX = e.clientX;
-    previousY = e.clientY;
+    prevX = e.clientX;
+    prevY = e.clientY;
 });
 </script>
 
 </body>
 </html>
-
