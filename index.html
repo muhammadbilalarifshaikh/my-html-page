@@ -28,18 +28,19 @@ h1 {
     opacity: 0.8;
 }
 
-/* ===== YOU CAN ADJUST BAR POSITION HERE ===== */
+/* Scene */
 .scene {
-    margin-top: 40px; /* move up/down */
-    width: 420px;
-    height: 220px;
+    margin-top: 40px;
+    width: 90%;
+    max-width: 420px;
+    height: auto;
+    aspect-ratio: 380/180; /* maintain bar aspect */
     perspective: 1400px;
 }
-/* ============================================ */
 
 .bar {
-    width: 380px;
-    height: 180px;
+    width: 100%;
+    height: 100%;
     position: relative;
     transform-style: preserve-3d;
     transform: rotateX(18deg) rotateY(-18deg);
@@ -47,7 +48,6 @@ h1 {
     animation: showroomRotate 18s infinite linear;
 }
 
-/* Showroom Auto Rotation */
 @keyframes showroomRotate {
     from { transform: rotateX(18deg) rotateY(0deg); }
     to { transform: rotateX(18deg) rotateY(360deg); }
@@ -69,20 +69,27 @@ h1 {
     border-radius: 14px;
 }
 
-.front  { width: 380px; height: 180px; transform: translateZ(60px); display:flex; justify-content:center; align-items:center; }
-.back   { width: 380px; height: 180px; transform: rotateY(180deg) translateZ(60px); display:flex; justify-content:center; align-items:center; }
-.top    { width: 380px; height: 120px; transform: rotateX(90deg) translateZ(60px); }
-.bottom { width: 380px; height: 120px; transform: rotateX(-90deg) translateZ(120px); }
-.left   { width: 120px; height: 180px; transform: rotateY(-90deg) translateZ(60px); }
-.right  { width: 120px; height: 180px; transform: rotateY(90deg) translateZ(320px); }
+.front, .back, .top, .bottom, .left, .right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-/* Embossed Text */
+/* Convert fixed pixel sizes to relative */
+.front  { width: 100%; height: 100%; transform: translateZ(60px); }
+.back   { width: 100%; height: 100%; transform: rotateY(180deg) translateZ(60px); }
+.top    { width: 100%; height: 66%; transform: rotateX(90deg) translateZ(60px); }
+.bottom { width: 100%; height: 66%; transform: rotateX(-90deg) translateZ(120px); }
+.left   { width: 31%; height: 100%; transform: rotateY(-90deg) translateZ(60px); }
+.right  { width: 31%; height: 100%; transform: rotateY(90deg) translateZ(320px); }
+
+/* Engraving text */
 .engraving {
     text-align: center;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
     color: #5a2c0c;
-    user-select: none; /* Prevent copying */
+    user-select: none;
     pointer-events: none;
     text-shadow:
         2px 2px 2px #fbd3b5,
@@ -90,57 +97,73 @@ h1 {
         4px 4px 15px rgba(0,0,0,0.8);
 }
 
-.engraving h2 { margin: 6px 0; font-size: 24px; }
-.engraving p { margin: 4px 0; font-size: 16px; }
+.engraving h2 { margin: 4px 0; font-size: 5vw; }
+.engraving p  { margin: 2px 0; font-size: 3vw; }
 
 .reflection {
     position: absolute;
-    bottom: 90px;
-    width: 300px;
+    bottom: 10%;
+    width: 60%;
     height: 90px;
     background: radial-gradient(ellipse at center, rgba(255,140,60,0.4) 0%, transparent 75%);
     filter: blur(30px);
 }
 
-/* Premium Rates Table */
+/* Rates table */
 .rates {
     position: absolute;
-    bottom: 100px;
+    bottom: 5%;
+    width: 90%;
+    max-width: 400px;
     background: rgba(15,15,15,0.9);
-    padding: 25px 45px;   /* bigger padding */
+    padding: 20px;
     border-radius: 16px;
     backdrop-filter: blur(12px);
-    font-size: 18px;      /* bigger text */
+    font-size: 4vw;
     box-shadow: 
         0 0 40px rgba(255,140,60,0.25),
         inset 0 0 25px rgba(255,140,60,0.05);
     border: 1px solid rgba(255,140,60,0.2);
 }
 
-
 .rates table {
     border-collapse: collapse;
     color: #ffbf91;
+    width: 100%;
 }
 
 .rates td {
-    padding: 10px 25px;
+    padding: 8px 12px;
     letter-spacing: 1px;
+    font-size: 3.5vw;
 }
 
 .rates tr:not(:last-child) td {
     border-bottom: 1px solid rgba(255,140,60,0.15);
 }
 
-
+/* Footer */
 footer {
     position: absolute;
-    bottom: 30px;
-    font-size: 13px;
-    letter-spacing: 3px;
+    bottom: 2%;
+    font-size: 12px;
+    letter-spacing: 2px;
     opacity: 0.7;
 }
+
+/* ===== MEDIA QUERIES ===== */
+@media (min-width: 600px) {
+    .engraving h2 { font-size: 24px; }
+    .engraving p  { font-size: 16px; }
+    .rates td { font-size: 18px; }
+}
+
+@media (min-width: 900px) {
+    .scene { max-width: 420px; }
+    .rates { max-width: 380px; font-size: 18px; }
+}
 </style>
+
 </head>
 
 <body>
