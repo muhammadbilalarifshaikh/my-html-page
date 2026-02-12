@@ -3,35 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Certified 99.99% Pure Copper - 1KG</title>
+<title>TT Copper - Certified 99.99% Pure Copper</title>
 
 <style>
 body {
     margin: 0;
-    background: radial-gradient(circle at center, #1a1a1a 0%, #000 70%);
+    background: radial-gradient(circle at center, #1c1c1c 0%, #000 75%);
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+    overflow-x: hidden;
     font-family: 'Segoe UI', sans-serif;
     color: white;
+    user-select: none; /* Prevent text selection */
 }
 
+/* Header */
 h1 {
-    position: absolute;
-    top: 40px;
-    letter-spacing: 4px;
+    text-align: center;
+    margin-top: 35px;
+    letter-spacing: 5px;
     font-weight: 300;
     font-size: 18px;
     opacity: 0.8;
 }
 
+/* 3D Scene */
 .scene {
     width: 420px;
-    height: 220px;
-    perspective: 1400px;
+    height: 240px;
+    perspective: 1600px;
+    margin: 40px auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -43,25 +43,24 @@ h1 {
     position: relative;
     transform-style: preserve-3d;
     transform: rotateX(18deg) rotateY(-18deg);
-    transition: transform 0.1s ease-out;
     cursor: grab;
 }
 
-/* Copper Gradient */
+/* Copper Surface */
 .face {
     position: absolute;
     background: linear-gradient(
         145deg,
-        #f2a065 0%,
-        #d8843f 30%,
-        #b87333 55%,
-        #8a4a20 80%
+        #ffb47a 0%,
+        #e28b43 25%,
+        #b87333 50%,
+        #8a4a20 85%
     );
     box-shadow:
-        inset -25px -25px 40px rgba(0,0,0,0.5),
-        inset 25px 25px 40px rgba(255,255,255,0.15),
-        0 25px 60px rgba(0,0,0,0.8);
-    border-radius: 12px;
+        inset -30px -30px 50px rgba(0,0,0,0.55),
+        inset 30px 30px 40px rgba(255,255,255,0.2),
+        0 30px 60px rgba(0,0,0,0.8);
+    border-radius: 14px;
 }
 
 /* Faces */
@@ -72,45 +71,87 @@ h1 {
 .left   { width: 120px; height: 180px; transform: rotateY(-90deg) translateZ(60px); }
 .right  { width: 120px; height: 180px; transform: rotateY(90deg) translateZ(320px); }
 
-/* Engraving */
+/* Embossed Engraving */
 .engraving {
     text-align: center;
-    color: #5a2c0c;
+    color: #4a1f06;
     text-transform: uppercase;
     letter-spacing: 2px;
     text-shadow:
-        1px 1px 0 #f7c6a2,
-        -1px -1px 0 #6d3716,
-        3px 3px 10px rgba(0,0,0,0.7);
+        1px 1px 0 #ffc89c,
+        -1px -1px 0 #6a3514,
+        4px 4px 15px rgba(0,0,0,0.6);
 }
 
 .engraving h2 {
-    margin: 6px 0;
-    font-size: 26px;
+    margin: 5px 0;
+    font-size: 24px;
 }
 
 .engraving p {
-    margin: 4px 0;
-    font-size: 17px;
+    margin: 3px 0;
+    font-size: 16px;
 }
 
-/* Centered Reflection */
+/* Reflection Glow */
 .reflection {
-    position: absolute;
-    bottom: 90px;
-    width: 300px;
-    height: 90px;
-    background: radial-gradient(ellipse at center, rgba(255,140,60,0.35) 0%, transparent 75%);
-    filter: blur(30px);
+    width: 320px;
+    height: 100px;
+    margin: auto;
+    background: radial-gradient(ellipse at center, rgba(255,150,70,0.4) 0%, transparent 75%);
+    filter: blur(35px);
+}
+
+/* Market Rates Section */
+.rates {
+    width: 90%;
+    max-width: 600px;
+    margin: 40px auto;
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(6px);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+}
+
+.rates h3 {
+    text-align: center;
+    letter-spacing: 3px;
+    font-weight: 300;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    font-weight: 500;
+    letter-spacing: 1px;
+    opacity: 0.7;
+}
+
+td {
+    font-size: 15px;
+}
+
+tr {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 /* Footer */
 footer {
-    position: absolute;
-    bottom: 35px;
-    font-size: 14px;
+    text-align: center;
+    margin: 30px 0;
+    font-size: 13px;
     letter-spacing: 3px;
-    opacity: 0.6;
+    opacity: 0.5;
 }
 </style>
 </head>
@@ -123,8 +164,8 @@ footer {
     <div class="bar" id="bar">
         <div class="face front">
             <div class="engraving">
+                <h2>TT COPPER</h2>
                 <h2>99.99% PURE</h2>
-                <h2>COPPER</h2>
                 <p>1 KILOGRAM</p>
                 <p>CERTIFIED</p>
             </div>
@@ -139,16 +180,49 @@ footer {
 
 <div class="reflection"></div>
 
-<footer>Authenticity Guaranteed</footer>
+<div class="rates">
+    <h3>Pakistan Market Copper Rates</h3>
+    <table>
+        <tr>
+            <th>Type</th>
+            <th>Price (PKR)</th>
+        </tr>
+        <tr>
+            <td>Per KG (99.99% Fine)</td>
+            <td>Rs. 2,350</td>
+        </tr>
+        <tr>
+            <td>Per 10 KG Lot</td>
+            <td>Rs. 23,200</td>
+        </tr>
+        <tr>
+            <td>Industrial Scrap Grade</td>
+            <td>Rs. 1,850</td>
+        </tr>
+    </table>
+</div>
+
+<footer>Authenticity Guaranteed • Secure Investment Asset</footer>
 
 <script>
 const bar = document.getElementById("bar");
 
-let isDragging = false;
-let prevX, prevY;
 let rotX = 18;
 let rotY = -18;
+let isDragging = false;
+let prevX, prevY;
 
+/* Auto Showroom Rotation */
+function autoRotate() {
+    if (!isDragging) {
+        rotY += 0.2;
+        bar.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+    }
+    requestAnimationFrame(autoRotate);
+}
+autoRotate();
+
+/* Drag Rotation */
 bar.addEventListener("mousedown", e => {
     isDragging = true;
     prevX = e.clientX;
@@ -172,3 +246,4 @@ document.addEventListener("mousemove", e => {
 
 </body>
 </html>
+
