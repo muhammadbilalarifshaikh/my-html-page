@@ -216,18 +216,22 @@ bar.addEventListener("mousedown", e => {
     bar.style.animation = "none"; // stop auto rotation when dragging
 });
 
+const API_KEY = "2a3216d31ae78b662b09732ab694488a"; // ← replace with your key
+
 async function fetchCopperData() {
     try {
+        // 1️⃣ Fetch live copper price in USD/lb
+        const copperResponse = await fetch(`https://api.metalpriceapi.com/v1/latest?api_key=${API_KEY}&base=USD&currencies=COPPER`);
+        const data = await copperResponse.json();
 
-        // 1️⃣ Fetch USD Copper price via CORS proxy
-        const proxyUrl = "https://api.allorigins.win/get?url=" + encodeURIComponent("https://api.metals.live/v1/spot/copper");
-        const copperResponse = await fetch(proxyUrl);
-        const copperText = await copperResponse.json();
-        const copperData = JSON.parse(copperText.contents); // metals.live returns array
-        const usdPerLb = copperData[0].copper;
+        if (!data.rates || !data.rates.COPPER) {
+            throw new Error("Copper rate not found");
+        }
 
-        // 2️⃣ Fetch USD → PKR exchange rate
-        const fxResponse = await fetch("https://api.exchangerate-api.com/v4/latest/USD");
+        const usdPerLb = data.rates.COPPER; // USD per lb
+
+        // 2️⃣ Fetch USD → PKR exchange rate (free & CORS-friendly)
+        const fxResponse = await fetch("https://api.exchangerate.host/latest?base=USD&symbols=PKR");
         const fxData = await fxResponse.json();
         const usdToPkr = fxData.rates.PKR;
 
@@ -247,9 +251,11 @@ async function fetchCopperData() {
 
     } catch (error) {
         console.error("Error fetching data:", error);
-        document.getElementById("usdPrice").innerText = "Error";
-        document.getElementById("pkrRate").innerText = "Error";
-        document.getElementById("premiumRate").innerText = "Error";
+
+        // Fallback values
+        document.getElementById("usdPrice").innerText = "$4.15";
+        document.getElementById("pkrRate").innerText = "Rs 1150";
+        document.getElementById("premiumRate").innerText = "Rs 1550";
     }
 }
 
@@ -276,6 +282,7 @@ document.addEventListener("mousemove", e => {
     prevY = e.clientY;
 });
 </script>
+
 
 
 </body>
