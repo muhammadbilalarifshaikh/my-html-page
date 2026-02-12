@@ -44,7 +44,7 @@ h1 {
     transform-style: preserve-3d;
     transform: rotateX(18deg) rotateY(-18deg);
     transition: transform 0.1s ease-out;
-    animation: showroomRotate 8s infinite linear;
+    animation: showroomRotate 18s infinite linear;
 }
 
 /* Showroom Auto Rotation */
@@ -166,7 +166,7 @@ footer {
                 <h2>TT COPPER</h2>
                 <h2>99.99% PURE</h2>
                 <p>1 KILOGRAM</p>
-                <p>BILAL TRADERS</p>
+                <p>ULTRA REFINED</p>
             </div>
         </div>
 
@@ -182,11 +182,21 @@ footer {
 <!-- Premium Pakistan Copper Rates -->
 <div class="rates">
     <table>
-        <tr><td>Refined 99.99% Copper</td><td>Rs 6,200 / KG</td></tr>
-        <tr><td>High-Quality Millberry</td><td>Rs 5,500 / KG</td></tr>
-        <tr><td>International Spot (approx)</td><td>≈ Rs 3,700 / KG</td></tr>
+        <tr>
+            <td>Global Copper (USD/lb)</td>
+            <td id="usdPrice">Loading...</td>
+        </tr>
+        <tr>
+            <td>Converted PKR/kg</td>
+            <td id="pkrRate">Loading...</td>
+        </tr>
+        <tr>
+            <td>Ultra Premium Physical (PKR/kg)</td>
+            <td id="premiumRate">Loading...</td>
+        </tr>
     </table>
 </div>
+
 
 <footer>Authenticity • Purity • Trust</footer>
 
@@ -203,8 +213,49 @@ bar.addEventListener("mousedown", e => {
     isDragging = true;
     prevX = e.clientX;
     prevY = e.clientY;
-    bar.style.animation = "none"; // stop auto rotation when dragging
+    bar.style.animation = "none"; // stop auto rotation when draggin
 });
+
+async function fetchCopperData() {
+    try {
+
+        // 1️⃣ Fetch USD Copper price (free commodity endpoint proxy)
+        const copperResponse = await fetch("https://api.metals.live/v1/spot/copper");
+        const copperData = await copperResponse.json();
+
+        // metals.live returns array format like:
+        // [ { copper: 4.15 } ]
+        const usdPerLb = copperData[0].copper;
+
+        // 2️⃣ Fetch USD → PKR exchange rate
+        const fxResponse = await fetch("https://api.exchangerate-api.com/v4/latest/USD");
+        const fxData = await fxResponse.json();
+        const usdToPkr = fxData.rates.PKR;
+
+        // 3️⃣ Convert USD/lb → USD/kg
+        const usdPerKg = usdPerLb * 2.20462;
+
+        // 4️⃣ Convert to PKR/kg
+        const pkrPerKg = usdPerKg * usdToPkr;
+
+        // 5️⃣ Add Ultra Premium physical markup (refining + dealer + retail margin)
+        const premium = pkrPerKg * 1.35;
+
+        document.getElementById("usdPrice").innerText = "$" + usdPerLb.toFixed(2);
+        document.getElementById("pkrRate").innerText = "Rs " + Math.round(pkrPerKg);
+        document.getElementById("premiumRate").innerText = "Rs " + Math.round(premium);
+
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
+}
+
+// Fetch on load
+fetchCopperData();
+
+// Update every 60 seconds
+setInterval(fetchCopperData, 60000);
+
 
 document.addEventListener("mouseup", () => {
     isDragging = false;
