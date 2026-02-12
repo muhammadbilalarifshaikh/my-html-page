@@ -3,39 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TT Copper - Certified 99.99% Pure Copper</title>
+<title>TT Copper – 1KG 99.99% Pure</title>
 
 <style>
 body {
     margin: 0;
-    background: radial-gradient(circle at center, #1c1c1c 0%, #000 75%);
+    background: radial-gradient(circle at center, #1b1b1b 0%, #000 80%);
     height: 100vh;
-    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
     font-family: 'Segoe UI', sans-serif;
     color: white;
-    user-select: none; /* Prevent text selection */
 }
 
-/* Header */
 h1 {
-    text-align: center;
-    margin-top: 35px;
-    letter-spacing: 5px;
+    position: absolute;
+    top: 40px;
+    letter-spacing: 4px;
     font-weight: 300;
     font-size: 18px;
     opacity: 0.8;
 }
 
-/* 3D Scene */
+/* ===== YOU CAN ADJUST BAR POSITION HERE ===== */
 .scene {
+    margin-top: 40px; /* move up/down */
     width: 420px;
-    height: 240px;
-    perspective: 1600px;
-    margin: 40px auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    height: 220px;
+    perspective: 1400px;
 }
+/* ============================================ */
 
 .bar {
     width: 380px;
@@ -43,134 +43,123 @@ h1 {
     position: relative;
     transform-style: preserve-3d;
     transform: rotateX(18deg) rotateY(-18deg);
-    cursor: grab;
+    transition: transform 0.1s ease-out;
+    animation: showroomRotate 8s infinite linear;
 }
 
-/* Copper Surface */
+/* Showroom Auto Rotation */
+@keyframes showroomRotate {
+    from { transform: rotateX(18deg) rotateY(0deg); }
+    to { transform: rotateX(18deg) rotateY(360deg); }
+}
+
 .face {
     position: absolute;
     background: linear-gradient(
         145deg,
-        #ffb47a 0%,
-        #e28b43 25%,
-        #b87333 50%,
-        #8a4a20 85%
+        #ffb37a 0%,
+        #e69149 25%,
+        #c8752c 55%,
+        #8a4a20 80%
     );
     box-shadow:
-        inset -30px -30px 50px rgba(0,0,0,0.55),
-        inset 30px 30px 40px rgba(255,255,255,0.2),
-        0 30px 60px rgba(0,0,0,0.8);
+        inset -20px -20px 40px rgba(0,0,0,0.5),
+        inset 20px 20px 40px rgba(255,255,255,0.25),
+        0 30px 60px rgba(0,0,0,0.9);
     border-radius: 14px;
 }
 
-/* Faces */
 .front  { width: 380px; height: 180px; transform: translateZ(60px); display:flex; justify-content:center; align-items:center; }
-.back   { width: 380px; height: 180px; transform: rotateY(180deg) translateZ(60px); }
+.back   { width: 380px; height: 180px; transform: rotateY(180deg) translateZ(60px); display:flex; justify-content:center; align-items:center; }
 .top    { width: 380px; height: 120px; transform: rotateX(90deg) translateZ(60px); }
 .bottom { width: 380px; height: 120px; transform: rotateX(-90deg) translateZ(120px); }
 .left   { width: 120px; height: 180px; transform: rotateY(-90deg) translateZ(60px); }
 .right  { width: 120px; height: 180px; transform: rotateY(90deg) translateZ(320px); }
 
-/* Embossed Engraving */
+/* Embossed Text */
 .engraving {
     text-align: center;
-    color: #4a1f06;
     text-transform: uppercase;
     letter-spacing: 2px;
+    color: #5a2c0c;
+    user-select: none; /* Prevent copying */
+    pointer-events: none;
     text-shadow:
-        1px 1px 0 #ffc89c,
-        -1px -1px 0 #6a3514,
-        4px 4px 15px rgba(0,0,0,0.6);
+        2px 2px 2px #fbd3b5,
+        -2px -2px 3px #6d3716,
+        4px 4px 15px rgba(0,0,0,0.8);
 }
 
-.engraving h2 {
-    margin: 5px 0;
-    font-size: 24px;
-}
+.engraving h2 { margin: 6px 0; font-size: 24px; }
+.engraving p { margin: 4px 0; font-size: 16px; }
 
-.engraving p {
-    margin: 3px 0;
-    font-size: 16px;
-}
-
-/* Reflection Glow */
 .reflection {
-    width: 320px;
-    height: 100px;
-    margin: auto;
-    background: radial-gradient(ellipse at center, rgba(255,150,70,0.4) 0%, transparent 75%);
-    filter: blur(35px);
+    position: absolute;
+    bottom: 90px;
+    width: 300px;
+    height: 90px;
+    background: radial-gradient(ellipse at center, rgba(255,140,60,0.4) 0%, transparent 75%);
+    filter: blur(30px);
 }
 
-/* Market Rates Section */
+/* Premium Rates Table */
 .rates {
-    width: 90%;
-    max-width: 600px;
-    margin: 40px auto;
-    background: rgba(255,255,255,0.04);
-    backdrop-filter: blur(6px);
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+    position: absolute;
+    bottom: 90px;
+    background: rgba(20,20,20,0.85);
+    padding: 15px 25px;
+    border-radius: 10px;
+    backdrop-filter: blur(8px);
+    font-size: 14px;
+    box-shadow: 0 0 25px rgba(255,140,60,0.2);
 }
 
-.rates h3 {
-    text-align: center;
-    letter-spacing: 3px;
-    font-weight: 300;
-    margin-bottom: 20px;
-}
-
-table {
-    width: 100%;
+.rates table {
     border-collapse: collapse;
+    color: #f5c7a3;
 }
 
-th, td {
-    padding: 12px;
-    text-align: center;
+.rates td {
+    padding: 6px 14px;
 }
 
-th {
-    font-weight: 500;
-    letter-spacing: 1px;
-    opacity: 0.7;
-}
-
-td {
-    font-size: 15px;
-}
-
-tr {
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-/* Footer */
 footer {
-    text-align: center;
-    margin: 30px 0;
+    position: absolute;
+    bottom: 30px;
     font-size: 13px;
     letter-spacing: 3px;
-    opacity: 0.5;
+    opacity: 0.7;
 }
 </style>
 </head>
 
 <body>
 
-<h1>Certified Investment Grade Copper</h1>
+<h1>TT COPPER – Investment Grade Bullion</h1>
 
 <div class="scene">
     <div class="bar" id="bar">
+
+        <!-- FRONT -->
         <div class="face front">
             <div class="engraving">
                 <h2>TT COPPER</h2>
                 <h2>99.99% PURE</h2>
                 <p>1 KILOGRAM</p>
-                <p>CERTIFIED</p>
+                <p>BILAL TRADERS</p>
             </div>
         </div>
-        <div class="face back"></div>
+
+        <!-- BACK (Same Embossing) -->
+        <div class="face back">
+            <div class="engraving">
+                <h2>TT COPPER</h2>
+                <h2>99.99% PURE</h2>
+                <p>1 KILOGRAM</p>
+                <p>BILAL TRADERS</p>
+            </div>
+        </div>
+
         <div class="face top"></div>
         <div class="face bottom"></div>
         <div class="face left"></div>
@@ -180,56 +169,37 @@ footer {
 
 <div class="reflection"></div>
 
+<!-- Premium Pakistan Copper Rates -->
 <div class="rates">
-    <h3>Pakistan Market Copper Rates</h3>
     <table>
-        <tr>
-            <th>Type</th>
-            <th>Price (PKR)</th>
-        </tr>
-        <tr>
-            <td>Per KG (99.99% Fine)</td>
-            <td>Rs. 2,350</td>
-        </tr>
-        <tr>
-            <td>Per 10 KG Lot</td>
-            <td>Rs. 23,200</td>
-        </tr>
-        <tr>
-            <td>Industrial Scrap Grade</td>
-            <td>Rs. 1,850</td>
-        </tr>
+        <tr><td>Refined 99.99% Copper</td><td>Rs 6,200 / KG</td></tr>
+        <tr><td>High-Quality Millberry</td><td>Rs 5,500 / KG</td></tr>
+        <tr><td>International Spot (approx)</td><td>≈ Rs 3,700 / KG</td></tr>
     </table>
 </div>
 
-<footer>Authenticity Guaranteed • Secure Investment Asset</footer>
+<footer>Authenticity • Purity • Trust</footer>
 
 <script>
 const bar = document.getElementById("bar");
 
-let rotX = 18;
-let rotY = -18;
 let isDragging = false;
 let prevX, prevY;
+let rotX = 18;
+let rotY = 0;
 
-/* Auto Showroom Rotation */
-function autoRotate() {
-    if (!isDragging) {
-        rotY += 0.2;
-        bar.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
-    }
-    requestAnimationFrame(autoRotate);
-}
-autoRotate();
-
-/* Drag Rotation */
+/* Drag Rotate */
 bar.addEventListener("mousedown", e => {
     isDragging = true;
     prevX = e.clientX;
     prevY = e.clientY;
+    bar.style.animation = "none"; // stop auto rotation when dragging
 });
 
-document.addEventListener("mouseup", () => isDragging = false);
+document.addEventListener("mouseup", () => {
+    isDragging = false;
+    bar.style.animation = "showroomRotate 8s infinite linear";
+});
 
 document.addEventListener("mousemove", e => {
     if (!isDragging) return;
@@ -246,4 +216,3 @@ document.addEventListener("mousemove", e => {
 
 </body>
 </html>
-
