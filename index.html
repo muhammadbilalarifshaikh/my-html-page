@@ -105,23 +105,33 @@ h1 {
 /* Premium Rates Table */
 .rates {
     position: absolute;
-    bottom: 90px;
-    background: rgba(20,20,20,0.85);
-    padding: 15px 25px;
-    border-radius: 10px;
-    backdrop-filter: blur(8px);
-    font-size: 14px;
-    box-shadow: 0 0 25px rgba(255,140,60,0.2);
+    bottom: 100px;
+    background: rgba(15,15,15,0.9);
+    padding: 25px 45px;   /* bigger padding */
+    border-radius: 16px;
+    backdrop-filter: blur(12px);
+    font-size: 18px;      /* bigger text */
+    box-shadow: 
+        0 0 40px rgba(255,140,60,0.25),
+        inset 0 0 25px rgba(255,140,60,0.05);
+    border: 1px solid rgba(255,140,60,0.2);
 }
+
 
 .rates table {
     border-collapse: collapse;
-    color: #f5c7a3;
+    color: #ffbf91;
 }
 
 .rates td {
-    padding: 6px 14px;
+    padding: 10px 25px;
+    letter-spacing: 1px;
 }
+
+.rates tr:not(:last-child) td {
+    border-bottom: 1px solid rgba(255,140,60,0.15);
+}
+
 
 footer {
     position: absolute;
@@ -198,7 +208,7 @@ bar.addEventListener("mousedown", e => {
 
 document.addEventListener("mouseup", () => {
     isDragging = false;
-    bar.style.animation = "showroomRotate 8s infinite linear";
+    bar.style.animation = "showroomRotate 18s infinite linear";
 });
 
 document.addEventListener("mousemove", e => {
