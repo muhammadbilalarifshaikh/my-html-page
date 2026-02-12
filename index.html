@@ -183,7 +183,7 @@ footer {
 <div class="rates">
     <table>
         <tr>
-            <td>Global Copper (USD/lb)</td>
+            <td>Premium Copper (USD/lb)</td>
             <td id="usdPrice">Loading...</td>
         </tr>
         <tr>
@@ -228,7 +228,7 @@ async function fetchCopperData() {
             throw new Error("Copper rate not found");
         }
 
-        const usdPerLb = data.rates.COPPER; // USD per lb
+        const usdPerLb = data.rates.COPPER * 6.5; // USD per lb
 
         // 2️⃣ Fetch USD → PKR exchange rate (free & CORS-friendly)
         const fxResponse = await fetch("https://api.exchangerate.host/latest?base=USD&symbols=PKR");
@@ -236,7 +236,7 @@ async function fetchCopperData() {
         const usdToPkr = fxData.rates.PKR;
 
         // 3️⃣ Convert USD/lb → USD/kg
-        const usdPerKg = usdPerLb * 2.20462;
+        const usdPerKg = usdPerLb * 2.20462 *6.2;
 
         // 4️⃣ Convert to PKR/kg
         const pkrPerKg = usdPerKg * usdToPkr;
