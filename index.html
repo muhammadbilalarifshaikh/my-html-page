@@ -213,18 +213,17 @@ bar.addEventListener("mousedown", e => {
     isDragging = true;
     prevX = e.clientX;
     prevY = e.clientY;
-    bar.style.animation = "none"; // stop auto rotation when draggin
+    bar.style.animation = "none"; // stop auto rotation when dragging
 });
 
 async function fetchCopperData() {
     try {
 
-        // 1️⃣ Fetch USD Copper price (free commodity endpoint proxy)
-        const copperResponse = await fetch("https://api.metals.live/v1/spot/copper");
-        const copperData = await copperResponse.json();
-
-        // metals.live returns array format like:
-        // [ { copper: 4.15 } ]
+        // 1️⃣ Fetch USD Copper price via CORS proxy
+        const proxyUrl = "https://api.allorigins.win/get?url=" + encodeURIComponent("https://api.metals.live/v1/spot/copper");
+        const copperResponse = await fetch(proxyUrl);
+        const copperText = await copperResponse.json();
+        const copperData = JSON.parse(copperText.contents); // metals.live returns array
         const usdPerLb = copperData[0].copper;
 
         // 2️⃣ Fetch USD → PKR exchange rate
@@ -238,15 +237,19 @@ async function fetchCopperData() {
         // 4️⃣ Convert to PKR/kg
         const pkrPerKg = usdPerKg * usdToPkr;
 
-        // 5️⃣ Add Ultra Premium physical markup (refining + dealer + retail margin)
+        // 5️⃣ Add Ultra Premium markup
         const premium = pkrPerKg * 1.35;
 
+        // Update table
         document.getElementById("usdPrice").innerText = "$" + usdPerLb.toFixed(2);
         document.getElementById("pkrRate").innerText = "Rs " + Math.round(pkrPerKg);
         document.getElementById("premiumRate").innerText = "Rs " + Math.round(premium);
 
     } catch (error) {
         console.error("Error fetching data:", error);
+        document.getElementById("usdPrice").innerText = "Error";
+        document.getElementById("pkrRate").innerText = "Error";
+        document.getElementById("premiumRate").innerText = "Error";
     }
 }
 
@@ -255,7 +258,6 @@ fetchCopperData();
 
 // Update every 60 seconds
 setInterval(fetchCopperData, 60000);
-
 
 document.addEventListener("mouseup", () => {
     isDragging = false;
@@ -274,6 +276,7 @@ document.addEventListener("mousemove", e => {
     prevY = e.clientY;
 });
 </script>
+
 
 </body>
 </html>
