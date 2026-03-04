@@ -118,18 +118,29 @@ h1 {
     transform: rotateX(-90deg) translateZ(265px);
 }
 
-/* LEFT */
+/* LEFT 
 .left {
     width: 70px;
     height: 100%;
     transform: rotateY(-90deg) translateZ(35px);
 }
 
-/* RIGHT */
+RIGHT 
 .right {
     width: 70px;
     height: 100%;
     transform:rotateY(90deg) translateZ(165px);
+}*/
+.left {
+    width: 70px;
+    height: 100%;
+    transform: rotateY(-90deg) translateZ(calc((50vw - 70px)/2));
+}
+
+.right {
+    width: 70px;
+    height: 100%;
+    transform: rotateY(90deg) translateZ(calc((50vw - 70px)/2));
 }
 
 /* ===================================== */
