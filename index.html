@@ -32,9 +32,9 @@ h1 {
 
 /* 3D SCENE CONTAINER */
 .scene {
-    margin-top: 40px;
+    margin-top: 50px;
     width: 220px;   /* width of scene */
-    height: 500px;  /* taller to fit bar */
+    height: 300px;  /* taller to fit bar */
     perspective: 1200px;
     display: flex;
     justify-content: center;
@@ -42,8 +42,8 @@ h1 {
 
 /* MAIN 3D BAR */
 .bar {
-    width: 120px;    /* medium width */
-    height: 300px;   /* tall height */
+    width: 180px;    /* medium width */
+    height: 320px;   /* tall height */
     position: relative;
     transform-style: preserve-3d;
     transform: rotateX(15deg) rotateY(0deg);
@@ -83,28 +83,28 @@ h1 {
 
 /* TOP & BOTTOM */
 .top {
-    width: 120px;   /* width of bar */
+    width: 180px;   /* width of bar */
     height: 40px;   /* shallow depth */
-    transform: rotateX(90deg) translateZ(150px); /* half height */
+    transform: rotateX(90deg) translateZ(20px); /* half height */
 }
 
 .bottom {
-    width: 120px;
+    width: 180px;
     height: 40px;
-    transform: rotateX(-90deg) translateZ(150px);
+    transform: rotateX(-90deg) translateZ(300px);
 }
 
 /* LEFT & RIGHT */
 .left {
     width: 40px;     /* depth */
-    height: 300px;   /* height */
-    transform: rotateY(-90deg) translateZ(60px); 
+    height: 320px;   /* height */
+    transform: rotateY(-90deg) translateZ(20px); 
 }
 
 .right {
     width: 40px;
-    height: 300px;
-    transform: rotateY(90deg) translateZ(60px);
+    height: 320px;
+    transform: rotateY(90deg) translateZ(160px);
 }
 
 /* ENGRAVED TEXT */
@@ -121,6 +121,43 @@ h1 {
         3px 3px 10px rgba(0,0,0,0.8);
 }
 
+.engraving .logo {
+    width: 85px;            /* Adjust width to fit nicely */
+    height: auto;
+    margin-bottom:8px;     /* Space between logo and text */
+    object-fit: contain;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    color: #5a2c0c;
+}
+.investment-note {
+    margin-top: 40px;
+    max-width: 380px;
+    text-align: center;
+    font-style: italic;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #ffbf91;
+    opacity: 0.95;
+    letter-spacing: 0.5px;
+    position: relative;
+    z-index: 1;
+    text-shadow: 
+        0 1px 2px rgba(0,0,0,0.4),
+        0 0 10px rgba(255,140,60,0.6); /* soft copper glow */
+}
+
+/* Soft reflection glow under the text */
+.note-reflection {
+    margin: -10px auto 0 auto;
+    width: 360px;
+    height: 20px;
+    background: radial-gradient(ellipse at center, rgba(255,140,60,0.25) 0%, transparent 80%);
+    filter: blur(12px);
+    border-radius: 50%;
+}
+
 .engraving h2 {
     margin: 4px 0;
     font-size: 16px;
@@ -129,6 +166,40 @@ h1 {
 .engraving p {
     margin: 2px 0;
     font-size: 12px;
+}
+.certificates {
+    display: flex;
+    justify-content: center;
+    gap: 25px; /* space between certificates */
+    margin-top: 35px;
+    perspective: 800px; /* gives slight 3D effect */
+}
+
+.certificate {
+    width: 180px; /* adjust size as needed */
+    height: auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 
+        0 10px 25px rgba(0,0,0,0.5), /* depth shadow */
+        0 0 25px rgba(255,140,60,0.3); /* copper glow */
+    transform: rotateY(-5deg) rotateX(2deg); /* subtle 3D tilt */
+    transition: transform 0.5s, box-shadow 0.5s;
+    position: relative;
+}
+
+.certificate img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+}
+
+.certificate:hover {
+    transform: rotateY(0deg) rotateX(0deg) scale(1.05);
+    box-shadow: 
+        0 15px 35px rgba(0,0,0,0.6),
+        0 0 35px rgba(255,140,60,0.45); /* intensifies glow on hover */
 }
 
 /* REFLECTION */
@@ -187,7 +258,9 @@ footer {
 
         <div class="face front">
             <div class="engraving">
+                <img src="logo_2.png" alt="TT Copper Logo" class="logo">
                 <h2>TT COPPER</h2>
+                <img src="copper.png" alt="Copper Icon" class="logo" style="width: 69px;">
                 <h2>99.99% PURE</h2>
                 <p>1 KILOGRAM</p>
                 <p>ULTRA REFINED</p>
@@ -196,7 +269,9 @@ footer {
 
         <div class="face back">
             <div class="engraving">
+                <img src="logo_2.png" alt="TT Copper Logo" class="logo">
                 <h2>TT COPPER</h2>
+                <img src="copper.png" alt="Copper Icon" class="logo" style="width: 69px;">
                 <h2>99.99% PURE</h2>
                 <p>1 KILOGRAM</p>
                 <p>ULTRA REFINED</p>
@@ -229,6 +304,22 @@ footer {
         </tr>
     </table>
 </div>
+
+<div class="investment-note">
+    Copper isn’t just a metal—it’s a legacy of value and stability. Its unmatched conductivity, global demand, and tangible worth make it a smart, enduring investment for those who value both security and prestige.
+</div>
+
+<div class="certificates">
+    <div class="certificate">
+        <img src="certificate1.jpeg" alt="Certificate 1">
+    </div>
+    <div class="certificate">
+        <img src="certificate2.jpeg" alt="Certificate 2">
+    </div>
+</div>
+
+<div class="note-reflection"></div>
+
 
 <footer>Authenticity • Purity • Trust</footer>
 
